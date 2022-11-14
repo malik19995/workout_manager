@@ -4,12 +4,12 @@ import 'package:workout_manager/core/models/magicuser.dart';
 import 'package:workout_manager/core/models/workout.dart';
 import 'package:workout_manager/ui/utils/utils.dart';
 
-part 'workout_state.dart';
-part 'workout_cubit.freezed.dart';
-part 'workout_cubit.g.dart';
+part 'workout_manager_state.dart';
+part 'workout_manager_cubit.freezed.dart';
+part 'workout_manager_cubit.g.dart';
 
-class WorkoutCubit extends HydratedCubit<WorkoutState> {
-  WorkoutCubit() : super(const WorkoutState.initial());
+class WorkoutManagerCubit extends HydratedCubit<WorkoutManagerState> {
+  WorkoutManagerCubit() : super(const WorkoutManagerState.initial());
 
   deleteWorkout(Workout deleteWorkout) {
     var newState = state.whenOrNull(
@@ -27,7 +27,7 @@ class WorkoutCubit extends HydratedCubit<WorkoutState> {
       );
 
       emit(
-        WorkoutState.loaded(
+        WorkoutManagerState.loaded(
           currentList,
           newState[1] as MagicUser,
         ),
@@ -66,7 +66,7 @@ class WorkoutCubit extends HydratedCubit<WorkoutState> {
         currentList.insert(0, w);
       }
       emit(
-        WorkoutState.loaded(
+        WorkoutManagerState.loaded(
           currentList,
           newState[1] as MagicUser,
         ),
@@ -76,16 +76,16 @@ class WorkoutCubit extends HydratedCubit<WorkoutState> {
   }
 
   @override
-  WorkoutState? fromJson(Map<String, dynamic> json) {
+  WorkoutManagerState? fromJson(Map<String, dynamic> json) {
     if (json.isNotEmpty) {
-      return WorkoutState.fromJson(json);
+      return WorkoutManagerState.fromJson(json);
     } else {
-      return const WorkoutState.initial();
+      return const WorkoutManagerState.initial();
     }
   }
 
   @override
-  Map<String, dynamic>? toJson(WorkoutState state) {
+  Map<String, dynamic>? toJson(WorkoutManagerState state) {
     return state.whenOrNull(
       loaded: (workouts, currentUser) {
         return state.toJson();

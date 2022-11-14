@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:workout_manager/core/navigator/navigator.dart';
-import 'package:workout_manager/state/workout_cubit/workout_cubit.dart';
 import 'package:workout_manager/ui/utils/size_config.dart';
 import 'package:workout_manager/ui/utils/utils.dart';
 import 'package:workout_manager/ui/widgets/custom_button.dart';
 import 'package:workout_manager/ui/widgets/page_title.dart';
 
 import '../core/constants/constants.dart';
+import '../state/workout_manager_cubit/workout_manager_cubit.dart';
 import 'screens/add_update_workout/consumer.dart';
 import 'screens/workout_list/workout_card.dart';
+import 'widgets/app_text.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({
@@ -45,10 +46,14 @@ class _HomePageState extends State<HomePage> {
           /// Main App Consumer - WorkoutCubit
           Expanded(
             flex: 7,
-            child: BlocBuilder<WorkoutCubit, WorkoutState>(
+            child: BlocBuilder<WorkoutManagerCubit, WorkoutManagerState>(
               builder: (context, state) {
                 return state.when(
-                  initial: () => customLoader,
+                  initial: () => const Center(
+                    child: AppText(
+                      'No Workouts Added',
+                    ),
+                  ),
                   loading: () => customLoader,
                   loaded: (workouts, currentUser) => ListView.builder(
                     padding: EdgeInsets.zero,

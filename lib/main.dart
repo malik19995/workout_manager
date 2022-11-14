@@ -4,8 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:workout_manager/core/constants/constants.dart';
+import 'package:workout_manager/state/workout_manager_cubit/workout_manager_cubit.dart';
 import 'package:workout_manager/ui/home.dart';
-import 'package:workout_manager/state/workout_cubit/workout_cubit.dart';
 import 'package:workout_manager/ui/utils/utils.dart';
 
 import 'core/constants/colors.dart';
@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     setStatusBarColors();
     return BlocProvider(
-      create: (context) => WorkoutCubit(),
+      create: (context) => WorkoutManagerCubit(),
       child: MaterialApp(
           debugShowCheckedModeBanner: false,
           title: Strings.appTitle,

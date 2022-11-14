@@ -13,8 +13,7 @@ import 'package:workout_manager/core/models/exercise_enum.dart';
 import 'package:workout_manager/core/models/workout.dart';
 import 'package:workout_manager/core/models/workout_set.dart';
 import 'package:workout_manager/main.dart';
-
-import 'package:workout_manager/state/workout_cubit/workout_cubit.dart';
+import 'package:workout_manager/state/workout_manager_cubit/workout_manager_cubit.dart';
 
 import 'helper/hydrated_bloc.dart';
 
@@ -22,13 +21,13 @@ void main() {
   initHydratedStorage();
 
   group('TaskCubit test', () {
-    late WorkoutCubit workoutCubit;
+    late WorkoutManagerCubit workoutCubit;
     late Storage storage;
 
     setUp(() {
-      workoutCubit = WorkoutCubit();
+      workoutCubit = WorkoutManagerCubit();
     });
-    blocTest<WorkoutCubit, WorkoutState>(
+    blocTest<WorkoutManagerCubit, WorkoutManagerState>(
         'emits [WorkoutLoaded,] states for successful workout addition',
         build: () => workoutCubit,
         act: (cubit) => cubit.addWorkout(
@@ -46,7 +45,7 @@ void main() {
             ),
         expect: () {
           return [
-            WorkoutState,
+            WorkoutManagerState,
           ];
         });
 

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'workout_cubit.dart';
+part of 'workout_manager_cubit.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator

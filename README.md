@@ -35,7 +35,7 @@ HydratedBloc used for localStorage management.
 ---------
 
 ### Workout List
-- Screen hooked with Workout Cubit
+- Screen hooked with Workout Manager Cubit
 - Holds the list of user workouts history
 - WorkoutCard for every workout
 

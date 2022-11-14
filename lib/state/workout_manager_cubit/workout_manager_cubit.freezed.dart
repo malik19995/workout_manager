@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
-part of 'workout_cubit.dart';
+part of 'workout_manager_cubit.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-WorkoutState _$WorkoutStateFromJson(Map<String, dynamic> json) {
+WorkoutManagerState _$WorkoutManagerStateFromJson(Map<String, dynamic> json) {
   switch (json['runtimeType']) {
     case 'initial':
       return _Initial.fromJson(json);
@@ -24,13 +24,13 @@ WorkoutState _$WorkoutStateFromJson(Map<String, dynamic> json) {
       return _Loaded.fromJson(json);
 
     default:
-      throw CheckedFromJsonException(json, 'runtimeType', 'WorkoutState',
+      throw CheckedFromJsonException(json, 'runtimeType', 'WorkoutManagerState',
           'Invalid union type "${json['runtimeType']}"!');
   }
 }
 
 /// @nodoc
-mixin _$WorkoutState {
+mixin _$WorkoutManagerState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
@@ -80,16 +80,16 @@ mixin _$WorkoutState {
 }
 
 /// @nodoc
-abstract class $WorkoutStateCopyWith<$Res> {
-  factory $WorkoutStateCopyWith(
-          WorkoutState value, $Res Function(WorkoutState) then) =
-      _$WorkoutStateCopyWithImpl<$Res, WorkoutState>;
+abstract class $WorkoutManagerStateCopyWith<$Res> {
+  factory $WorkoutManagerStateCopyWith(
+          WorkoutManagerState value, $Res Function(WorkoutManagerState) then) =
+      _$WorkoutManagerStateCopyWithImpl<$Res, WorkoutManagerState>;
 }
 
 /// @nodoc
-class _$WorkoutStateCopyWithImpl<$Res, $Val extends WorkoutState>
-    implements $WorkoutStateCopyWith<$Res> {
-  _$WorkoutStateCopyWithImpl(this._value, this._then);
+class _$WorkoutManagerStateCopyWithImpl<$Res, $Val extends WorkoutManagerState>
+    implements $WorkoutManagerStateCopyWith<$Res> {
+  _$WorkoutManagerStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -106,7 +106,7 @@ abstract class _$$_InitialCopyWith<$Res> {
 
 /// @nodoc
 class __$$_InitialCopyWithImpl<$Res>
-    extends _$WorkoutStateCopyWithImpl<$Res, _$_Initial>
+    extends _$WorkoutManagerStateCopyWithImpl<$Res, _$_Initial>
     implements _$$_InitialCopyWith<$Res> {
   __$$_InitialCopyWithImpl(_$_Initial _value, $Res Function(_$_Initial) _then)
       : super(_value, _then);
@@ -125,7 +125,7 @@ class _$_Initial implements _Initial {
 
   @override
   String toString() {
-    return 'WorkoutState.initial()';
+    return 'WorkoutManagerState.initial()';
   }
 
   @override
@@ -215,7 +215,7 @@ class _$_Initial implements _Initial {
   }
 }
 
-abstract class _Initial implements WorkoutState {
+abstract class _Initial implements WorkoutManagerState {
   const factory _Initial() = _$_Initial;
 
   factory _Initial.fromJson(Map<String, dynamic> json) = _$_Initial.fromJson;
@@ -230,7 +230,7 @@ abstract class _$$_LoadingCopyWith<$Res> {
 
 /// @nodoc
 class __$$_LoadingCopyWithImpl<$Res>
-    extends _$WorkoutStateCopyWithImpl<$Res, _$_Loading>
+    extends _$WorkoutManagerStateCopyWithImpl<$Res, _$_Loading>
     implements _$$_LoadingCopyWith<$Res> {
   __$$_LoadingCopyWithImpl(_$_Loading _value, $Res Function(_$_Loading) _then)
       : super(_value, _then);
@@ -249,7 +249,7 @@ class _$_Loading implements _Loading {
 
   @override
   String toString() {
-    return 'WorkoutState.loading()';
+    return 'WorkoutManagerState.loading()';
   }
 
   @override
@@ -339,7 +339,7 @@ class _$_Loading implements _Loading {
   }
 }
 
-abstract class _Loading implements WorkoutState {
+abstract class _Loading implements WorkoutManagerState {
   const factory _Loading() = _$_Loading;
 
   factory _Loading.fromJson(Map<String, dynamic> json) = _$_Loading.fromJson;
@@ -357,7 +357,7 @@ abstract class _$$_LoadedCopyWith<$Res> {
 
 /// @nodoc
 class __$$_LoadedCopyWithImpl<$Res>
-    extends _$WorkoutStateCopyWithImpl<$Res, _$_Loaded>
+    extends _$WorkoutManagerStateCopyWithImpl<$Res, _$_Loaded>
     implements _$$_LoadedCopyWith<$Res> {
   __$$_LoadedCopyWithImpl(_$_Loaded _value, $Res Function(_$_Loaded) _then)
       : super(_value, _then);
@@ -415,7 +415,7 @@ class _$_Loaded implements _Loaded {
 
   @override
   String toString() {
-    return 'WorkoutState.loaded(workouts: $workouts, currentUser: $currentUser)';
+    return 'WorkoutManagerState.loaded(workouts: $workouts, currentUser: $currentUser)';
   }
 
   @override
@@ -516,7 +516,7 @@ class _$_Loaded implements _Loaded {
   }
 }
 
-abstract class _Loaded implements WorkoutState {
+abstract class _Loaded implements WorkoutManagerState {
   const factory _Loaded(
       final List<Workout> workouts, final MagicUser currentUser) = _$_Loaded;
 

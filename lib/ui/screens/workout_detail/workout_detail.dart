@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:workout_manager/core/models/workout.dart';
-import 'package:workout_manager/state/workout_cubit/workout_cubit.dart';
 import 'package:workout_manager/ui/widgets/app_text.dart';
 import 'package:workout_manager/ui/widgets/custom_button.dart';
 
@@ -9,6 +8,7 @@ import '../../../core/constants/colors.dart';
 import '../../../core/constants/constants.dart';
 import '../../../core/models/workout_set.dart';
 import '../../../core/navigator/navigator.dart';
+import '../../../state/workout_manager_cubit/workout_manager_cubit.dart';
 import '../../utils/utils.dart';
 import '../../utils/workout_utils.dart';
 import '../../widgets/page_title.dart';
@@ -136,7 +136,7 @@ class WorkoutDetail extends StatelessWidget {
               ),
               CustomButton(
                 onPressed: () {
-                  context.read<WorkoutCubit>().deleteWorkout(workout);
+                  context.read<WorkoutManagerCubit>().deleteWorkout(workout);
                   navigateBack(context);
                 },
                 label: Strings.delete,
