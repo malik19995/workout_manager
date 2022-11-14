@@ -51,7 +51,34 @@ HydratedBloc used for localStorage management.
 - For each set in number of sets above, Exercise and RepCount are inputted.
 - Submit Button to add the Workout with WorkoutCubit, that holds our Application state.
 
------------------
+
+
+-------
+## Packages 
+-------
+
+### Dependencies 
+- bloc, flutter_bloc => State Management
+- hydratedBloc => localStorage 
+- flutter_svg => Render SVG assets
+- json_annotation, freezed_annotation => Bloc and Models Generation
+- animated_splash => Quick and Easy splash screen
+- logger => Better debug logs
+- fluttertoast => To launch toasts without BuildContext
+- flutter_statusbarcolor_ns for Colored Status and Navigation Bar.
+- path_provider => To get storage path for the HydratedStorage
+- intl => DateFormatter used.
+
+### Dev Dependencies 
+- bloc_test => Bloc Testing
+- freezed, build_runner, json_serializable, freezed_annotation => Bloc and Models Generation
+- mocktail => Mocking Storage for tests.
+- flutter_launcher_icons => Pub script to generate Application icons for all platforms.
+
+
+
+
+--------
 ## Testing 
 --------
 *Pending*
