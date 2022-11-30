@@ -82,253 +82,259 @@ class _AddUpdateWorkoutState extends State<AddUpdateWorkout> {
             icon: backIcon),
         title: PageTitle(title: Strings.addWorkout.toUpperCase()),
       ),
-      body: BlocBuilder<NewWorkoutCubit, NewWorkoutState>(
-        buildWhen: ((previous, current) =>
-            previous.newWorkout != current.newWorkout),
-        builder: (context, state) {
-          ///
-          ///
-          /// Submit Method
-          /// Validates inputs
-          /// Stores Workout in WorkoutCubit
-          submitWorkout() {
-            if (state.newWorkout == null ||
-                state.newWorkout!.sets.any(
-                  (element) => element.reps == 0,
-                ) ||
-                state.newWorkout!.sets
-                    .any((element) => element.exercise == null)) {
-              showToast(
-                Strings.fieldsInvalid,
-              );
-            } else {
-              context.read<WorkoutManagerCubit>().addWorkout(
-                    state.newWorkout!,
-                    upgrade: widget.upgrade,
-                  );
+      body: SafeArea(
+        child: BlocBuilder<NewWorkoutCubit, NewWorkoutState>(
+          buildWhen: ((previous, current) =>
+              previous.newWorkout != current.newWorkout),
+          builder: (context, state) {
+            ///
+            ///
+            /// Submit Method
+            /// Validates inputs
+            /// Stores Workout in WorkoutCubit
+            submitWorkout() {
+              if (state.newWorkout == null ||
+                  state.newWorkout!.sets.any(
+                    (element) => element.reps == 0,
+                  ) ||
+                  state.newWorkout!.sets
+                      .any((element) => element.exercise == null)) {
+                showToast(
+                  Strings.fieldsInvalid,
+                );
+              } else {
+                context.read<WorkoutManagerCubit>().addWorkout(
+                      state.newWorkout!,
+                      upgrade: widget.upgrade,
+                    );
 
-              navigateBack(context);
+                navigateBack(context);
+              }
             }
-          }
 
-          return Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              sized(h: 12),
-              Expanded(
-                child: Form(
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        CustomDropDownField(
-                          initialValue: state.newWorkout?.sets.length,
-                          items: List.generate(
-                            50,
-                            (index) => DropdownMenuItem<int>(
-                              value: index + 1,
-                              child: Center(
-                                  child: Text(
-                                '${index + 1}',
-                                style: textTheme.bodyMedium!.copyWith(
-                                  color: AppColors.primary,
-                                  fontSize: 24,
-                                ),
-                              )),
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                sized(h: 12),
+                Expanded(
+                  child: Form(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          CustomDropDownField(
+                            initialValue: state.newWorkout?.sets.length,
+                            items: List.generate(
+                              50,
+                              (index) => DropdownMenuItem<int>(
+                                value: index + 1,
+                                child: Center(
+                                    child: Text(
+                                  '${index + 1}',
+                                  style: textTheme.bodyMedium!.copyWith(
+                                    color: AppColors.primary,
+                                    fontSize: 24,
+                                  ),
+                                )),
+                              ),
+                            ),
+                            label: Strings.numberOfSets,
+                            onChanged: (setCount) => setAdded(
+                              setCount,
+                              state,
+                              context,
                             ),
                           ),
-                          label: Strings.numberOfSets,
-                          onChanged: (setCount) => setAdded(
-                            setCount,
-                            state,
-                            context,
-                          ),
-                        ),
-                        (state.newWorkout?.sets.isNotEmpty ?? false)
-                            ? Expanded(
-                                child: ListView.builder(
-                                    padding: const EdgeInsets.symmetric(
-                                      vertical: 16,
-                                    ),
-                                    shrinkWrap: true,
-                                    itemCount: state.newWorkout!.sets.length,
-                                    itemBuilder: (context, index) {
-                                      ///
-                                      ///
-                                      /// Increment a Rep in indexed set.
-                                      void incrementSet() {
-                                        context
-                                            .read<NewWorkoutCubit>()
-                                            .incrementReps(
-                                              index,
-                                            );
-                                      }
+                          (state.newWorkout?.sets.isNotEmpty ?? false)
+                              ? Expanded(
+                                  child: ListView.builder(
+                                      padding: const EdgeInsets.symmetric(
+                                        vertical: 16,
+                                      ),
+                                      shrinkWrap: true,
+                                      itemCount: state.newWorkout!.sets.length,
+                                      itemBuilder: (context, index) {
+                                        ///
+                                        ///
+                                        /// Increment a Rep in indexed set.
+                                        void incrementSet() {
+                                          context
+                                              .read<NewWorkoutCubit>()
+                                              .incrementReps(
+                                                index,
+                                              );
+                                        }
 
-                                      ///
-                                      ///
-                                      /// Decrement a Rep in indexed set.
-                                      void decrementSet() {
-                                        context
-                                            .read<NewWorkoutCubit>()
-                                            .decrementReps(
-                                              index,
-                                            );
-                                      }
+                                        ///
+                                        ///
+                                        /// Decrement a Rep in indexed set.
+                                        void decrementSet() {
+                                          context
+                                              .read<NewWorkoutCubit>()
+                                              .decrementReps(
+                                                index,
+                                              );
+                                        }
 
-                                      void onExerciseSelect(selectedExercise) {
-                                        context
-                                            .read<NewWorkoutCubit>()
-                                            .updateExercise(
-                                                index, selectedExercise);
-                                      }
+                                        void onExerciseSelect(
+                                            selectedExercise) {
+                                          context
+                                              .read<NewWorkoutCubit>()
+                                              .updateExercise(
+                                                  index, selectedExercise);
+                                        }
 
-                                      return Container(
-                                        margin: const EdgeInsets.symmetric(
-                                            vertical: 12),
-                                        height: 100,
-                                        child: Column(
-                                          children: [
-                                            AppText('Set #${index + 1}'),
-                                            const PageDivider(
-                                              thickness: 1,
-                                              topPadding: 0,
-                                              bottomPadding: 8,
-                                            ),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Container(
-                                                  alignment:
-                                                      Alignment.centerLeft,
-                                                  width:
-                                                      SizeConfig.screenWidth /
-                                                          2.5,
-                                                  child: CustomDropDownField(
-                                                    initialValue: state
-                                                        .newWorkout!
-                                                        .sets[index]
-                                                        .exercise,
-                                                    hintStyle: textTheme
-                                                        .bodyMedium!
-                                                        .copyWith(
-                                                      color: AppColors.primary,
-                                                      fontSize: 14,
-                                                    ),
-                                                    texttStyle: textTheme
-                                                        .bodyMedium!
-                                                        .copyWith(
-                                                      color: AppColors.primary,
-                                                      fontSize: 14,
-                                                      fontWeight:
-                                                          FontWeight.normal,
-                                                    ),
-                                                    onChanged: onExerciseSelect,
-                                                    items: ExercisesEnum.values
-                                                        .map<
-                                                            DropdownMenuItem<
-                                                                Object>>(
-                                                          (e) =>
+                                        return Container(
+                                          margin: const EdgeInsets.symmetric(
+                                              vertical: 12),
+                                          height: 100,
+                                          child: Column(
+                                            children: [
+                                              AppText('Set #${index + 1}'),
+                                              const PageDivider(
+                                                thickness: 1,
+                                                topPadding: 0,
+                                                bottomPadding: 8,
+                                              ),
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Container(
+                                                    alignment:
+                                                        Alignment.centerLeft,
+                                                    width:
+                                                        SizeConfig.screenWidth /
+                                                            2.5,
+                                                    child: CustomDropDownField(
+                                                      initialValue: state
+                                                          .newWorkout!
+                                                          .sets[index]
+                                                          .exercise,
+                                                      hintStyle: textTheme
+                                                          .bodyMedium!
+                                                          .copyWith(
+                                                        color:
+                                                            AppColors.primary,
+                                                        fontSize: 14,
+                                                      ),
+                                                      texttStyle: textTheme
+                                                          .bodyMedium!
+                                                          .copyWith(
+                                                        color:
+                                                            AppColors.primary,
+                                                        fontSize: 14,
+                                                        fontWeight:
+                                                            FontWeight.normal,
+                                                      ),
+                                                      onChanged:
+                                                          onExerciseSelect,
+                                                      items: ExercisesEnum
+                                                          .values
+                                                          .map<
                                                               DropdownMenuItem<
-                                                                  ExercisesEnum>(
-                                                            value: e,
-                                                            child: Text(
-                                                              parseExerciseName(
-                                                                  e),
+                                                                  Object>>(
+                                                            (e) => DropdownMenuItem<
+                                                                ExercisesEnum>(
+                                                              value: e,
+                                                              child: Text(
+                                                                parseExerciseName(
+                                                                    e),
+                                                              ),
                                                             ),
-                                                          ),
-                                                        )
-                                                        .toList(),
-                                                    label:
-                                                        Strings.selectExercise,
+                                                          )
+                                                          .toList(),
+                                                      label: Strings
+                                                          .selectExercise,
+                                                    ),
                                                   ),
-                                                ),
-                                                Container(
-                                                  alignment:
-                                                      Alignment.centerRight,
-                                                  width:
-                                                      SizeConfig.screenWidth /
-                                                          2,
-                                                  child: Row(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceEvenly,
-                                                      children: [
-                                                        IconButton(
-                                                          onPressed: () =>
-                                                              decrementSet(),
-                                                          icon: const Icon(
-                                                            Icons.remove,
-                                                            color: AppColors
-                                                                .primary,
-                                                          ),
-                                                        ),
-                                                        Column(
-                                                          children: [
-                                                            Text(
-                                                              state
-                                                                  .newWorkout!
-                                                                  .sets[index]
-                                                                  .reps
-                                                                  .toString(),
-                                                              style: textTheme
-                                                                  .bodyLarge!
-                                                                  .copyWith(
-                                                                fontSize: 20,
-                                                                color: AppColors
-                                                                    .primary,
-                                                              ),
+                                                  Container(
+                                                    alignment:
+                                                        Alignment.centerRight,
+                                                    width:
+                                                        SizeConfig.screenWidth /
+                                                            2,
+                                                    child: Row(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceEvenly,
+                                                        children: [
+                                                          IconButton(
+                                                            onPressed: () =>
+                                                                decrementSet(),
+                                                            icon: const Icon(
+                                                              Icons.remove,
+                                                              color: AppColors
+                                                                  .primary,
                                                             ),
-                                                            Text(
-                                                              Strings.reps,
-                                                              style: textTheme
-                                                                  .bodySmall!
-                                                                  .copyWith(
-                                                                fontSize: 10,
-                                                                color: AppColors
-                                                                    .primary,
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                        IconButton(
-                                                          onPressed: () =>
-                                                              incrementSet(),
-                                                          icon: const Icon(
-                                                            Icons.add,
-                                                            color: AppColors
-                                                                .primary,
                                                           ),
-                                                        ),
-                                                      ]),
-                                                ),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                      );
-                                    }),
-                              )
-                            : spacer(),
-                        CustomButton(
-                          onPressed: () => submitWorkout(),
-                          label: Strings.submit,
-                        ),
-                      ],
+                                                          Column(
+                                                            children: [
+                                                              Text(
+                                                                state
+                                                                    .newWorkout!
+                                                                    .sets[index]
+                                                                    .reps
+                                                                    .toString(),
+                                                                style: textTheme
+                                                                    .bodyLarge!
+                                                                    .copyWith(
+                                                                  fontSize: 20,
+                                                                  color: AppColors
+                                                                      .primary,
+                                                                ),
+                                                              ),
+                                                              Text(
+                                                                Strings.reps,
+                                                                style: textTheme
+                                                                    .bodySmall!
+                                                                    .copyWith(
+                                                                  fontSize: 10,
+                                                                  color: AppColors
+                                                                      .primary,
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          IconButton(
+                                                            onPressed: () =>
+                                                                incrementSet(),
+                                                            icon: const Icon(
+                                                              Icons.add,
+                                                              color: AppColors
+                                                                  .primary,
+                                                            ),
+                                                          ),
+                                                        ]),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        );
+                                      }),
+                                )
+                              : spacer(),
+                          CustomButton(
+                            onPressed: () => submitWorkout(),
+                            label: Strings.submit,
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ],
-          );
-        },
+              ],
+            );
+          },
+        ),
       ),
     );
   }

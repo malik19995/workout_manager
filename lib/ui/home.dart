@@ -26,66 +26,67 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          sized(h: 50),
-          Center(child: appLogo),
-          const PageDivider(
-            bottomPadding: 8,
-          ),
-          PageTitle(
-            title: Strings.workouts.toUpperCase(),
-          ),
-          sized(h: 12),
+      body: SafeArea(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            Center(child: appLogo),
+            const PageDivider(
+              bottomPadding: 8,
+            ),
+            PageTitle(
+              title: Strings.workouts.toUpperCase(),
+            ),
+            sized(h: 12),
 
-          ///
-          ///
-          /// Main App Consumer - WorkoutCubit
-          Expanded(
-            flex: 7,
-            child: BlocBuilder<WorkoutManagerCubit, WorkoutManagerState>(
-              builder: (context, state) {
-                return state.when(
-                  initial: () => const Center(
-                    child: AppText(
-                      'No Workouts Added',
+            ///
+            ///
+            /// Main App Consumer - WorkoutCubit
+            Expanded(
+              flex: 7,
+              child: BlocBuilder<WorkoutManagerCubit, WorkoutManagerState>(
+                builder: (context, state) {
+                  return state.when(
+                    initial: () => const Center(
+                      child: AppText(
+                        'No Workouts Added',
+                      ),
                     ),
-                  ),
-                  loading: () => customLoader,
-                  loaded: (workouts, currentUser) => ListView.builder(
-                    padding: EdgeInsets.zero,
-                    itemCount: workouts.length,
-                    itemBuilder: ((context, index) {
-                      return WorkoutCard(
-                        workout: workouts[index],
-                        workoutNo: (workouts.length - index).toString(),
-                      );
-                    }),
-                  ),
-                );
-              },
+                    loading: () => customLoader,
+                    loaded: (workouts, currentUser) => ListView.builder(
+                      padding: EdgeInsets.zero,
+                      itemCount: workouts.length,
+                      itemBuilder: ((context, index) {
+                        return WorkoutCard(
+                          workout: workouts[index],
+                          workoutNo: (workouts.length - index).toString(),
+                        );
+                      }),
+                    ),
+                  );
+                },
+              ),
             ),
-          ),
-          sized(h: 8),
+            sized(h: 8),
 
-          ///
-          ///
-          /// Add Workout Button
-          Center(
-            child: CustomButton(
-              onPressed: () {
-                navigateTo(
-                  context,
-                  const AddUpdateWorkoutConsumer(),
-                );
-              },
-              label: Strings.add,
+            ///
+            ///
+            /// Add Workout Button
+            Center(
+              child: CustomButton(
+                onPressed: () {
+                  navigateTo(
+                    context,
+                    const AddUpdateWorkoutConsumer(),
+                  );
+                },
+                label: Strings.add,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
